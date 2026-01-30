@@ -34,8 +34,8 @@ graph LR
 ## 👥 Équipe (ESIIA 5)
 | Nom | Rôle |
 |----|------|
-| Membre 1 | Machine Learning |
-| Membre 2 | Machine Learning |
+| RAZANAJATOVO ANDRIANIMERINA Kinasaela | Machine Learning |
+| RASOANAIVO Aro Itokiana | Machine Learning |
 | ANDRIAMASINORO Aina Maminirina | Backend |
 | RABEMANANTSOA Fanilonombana Diana | Frontend |
 | VONJINIAINA Josoa | Documentation & Déploiement |
@@ -62,6 +62,26 @@ graph LR
 - **Prétraitement** : Minuscules, suppression de bruit (chiffres, ponctuation), retrait des stop words, tokenisation.
 - **Modèle** : Régression Logistique avec vectorisation TF-IDF.
 - **Métriques** : Accuracy et F1-score maximisés.
+## 🌐 Fonctionnement de l’application
+1. L’utilisateur saisit un message via Google Form
+2. Le message est envoyé à l’API backend
+3. Le modèle ML analyse le message
+4. La prédiction et le score de confiance sont retournés
+
+---
+
+## 🚀 Déploiement
+- API backend hébergée et accessible publiquement
+- Application disponible à l’évaluation
+
+🔗 **Lien de l’application** :  
+👉 https://spamorham-mu.vercel.app/
+
+---
+
+## 📈 Résultats
+- Accuracy : 0.8
+- F1-score : 0.75
 
 ---
 
