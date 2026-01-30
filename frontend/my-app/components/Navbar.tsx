@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 import { useLanguage } from '../lib/languageContext';
 import { motion } from 'framer-motion';
 
@@ -10,8 +11,13 @@ export const Navbar = () => {
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/10 px-6 py-4 flex justify-between items-center">
             <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center font-bold text-white">
-                    S
+                <div className="relative w-10 h-10">
+                    <Image
+                        src="/logo_mail.png"
+                        alt="Logo"
+                        fill
+                        className="object-contain"
+                    />
                 </div>
                 <span className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
                     SpamDetector
