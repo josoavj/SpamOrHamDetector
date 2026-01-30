@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 📩 Détection de SPAM – Application Web ML
 
 ## 🏫 Institut
@@ -19,7 +18,7 @@ Développer une application web capable de détecter si un message texte (SMS) e
 | Membre 2 | Machine Learning |
 | Membre 3 | Backend |
 | RABEMANANTSOA Fanilonombana Diana | Frontend |
-| Membre 5 | Documentation / Intégration |
+| VONJINIAINA Josoa | Documentation & Déploiement |
 
 ---
 
