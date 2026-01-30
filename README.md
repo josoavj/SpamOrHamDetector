@@ -1,13 +1,33 @@
 # 📩 Détection de SPAM – Application Web ML
 
-## 🏫 Institut
-**ISPM – Institut Supérieur Polytechnique de Madagascar**  
-🌐 https://www.ispm-edu.com
+Ce document détaille l'implémentation de la version MVP (Minimum Viable Product) de l'application et la stratégie de transition vers le modèle Machine Learning final.
 
 ---
 
-## 🎯 Objectif du projet
-Développer une application web capable de détecter si un message texte (SMS) est un **SPAM** ou un **HAM (non-spam)**, tout en fournissant un **score de confiance** basé sur un modèle de Machine Learning.
+## 🚀 1. État Actuel
+
+### Stack Frontend
+- **Framework** : Next.js 16 (App Router)
+- **Langage** : TypeScript
+- **Styling** : Tailwind CSS 4 (Design "Premium" Glassmorphism)
+- **Internationalisation** : Gestion d'état React (`LanguageContext`) pour le support FR/MG.
+- **Animations** : Framer Motion.
+
+### Architecture Hybride
+L'application utilise une approche hybride pour la détection de SPAM :
+
+1.  **Français (FR)** : Les messages sont envoyés à une API Backend FastAPI hébergée (`https://fastapi-for-spamorham.onrender.com`). Ce backend utilise un modèle de Machine Learning (Logistic Regression + TF-IDF) entraîné sur un dataset local.
+2.  **Malgache (MG)** : Les messages sont traités par un LLM (Llama 3 via OpenRouter) pour simuler la classification, faute de dataset suffisant pour l'instant.
+
+```mermaid
+graph LR
+    A[Client (Browser)] -->|POST /api/predict| B(Next.js API Route)
+    B -- Langue = FR --> C[Backend FastAPI (Render)]
+    C -->|Prédiction ML| B
+    B -- Langue = MG --> D[OpenRouter (LLM)]
+    D -->|Simulation LLM| B
+    B -->|JSON Result| A
+```
 
 ---
 
@@ -22,57 +42,26 @@ Développer une application web capable de détecter si un message texte (SMS) e
 
 ---
 
-## 🧱 Stack technologique
+## 🛠 Stack Technique
 
 ### 🔙 Backend & Machine Learning
-- Python 3.13.x
-- FastAPI
-- Scikit-learn
-- Pandas
-- Numpy
-- NLTK / SpaCy
-- Joblib
+- **Langage** : Python 3.13
+- **Framework** : FastAPI
+- **ML** : Scikit-learn, Pandas, Numpy, NLTK
+- **Déploiement** : Render
 
 ### 🎨 Frontend
-- Next.js
-- React
-- Tailwind CSS
-
-### ☁️ Déploiement
-- Backend : Render / Railway
-- Frontend : Vercel
-- Formulaire : Google Forms
+- **Framework** : Next.js 16, React
+- **Styling** : Tailwind CSS
+- **Déploiement** : Vercel
 
 ---
 
-## 📊 Données
-- Dataset principal : SMS en **français**
-- Sources : Kaggle / HuggingFace (datasets open)
-- Les données sont nettoyées et prétraitées avant l’entraînement.
-
----
-
-## ⚙️ Prétraitement
-- Mise en minuscules
-- Suppression de la ponctuation
-- Suppression des caractères spéciaux
-- Suppression des stop words (français)
-- Tokenisation
-
----
-
-## 🤖 Modèle de Machine Learning
-- Vectorisation : **TF-IDF**
-- Modèle : **Régression Logistique**
-- Métriques :
-  - Accuracy
-  - F1-score
-- Le modèle retourne :
-  - Une prédiction (SPAM / HAM)
-  - Une probabilité associée
-
----
-
+## 📊 Données & Modèle (Backend FR)
+- **Dataset** : SMS en français (nettoyé et prétraité).
+- **Prétraitement** : Minuscules, suppression de bruit (chiffres, ponctuation), retrait des stop words, tokenisation.
+- **Modèle** : Régression Logistique avec vectorisation TF-IDF.
+- **Métriques** : Accuracy et F1-score maximisés.
 ## 🌐 Fonctionnement de l’application
 1. L’utilisateur saisit un message via Google Form
 2. Le message est envoyé à l’API backend
@@ -98,14 +87,26 @@ Développer une application web capable de détecter si un message texte (SMS) e
 
 ## ▶️ Lancer le projet en local
 
-### Backend
+### Frontend
+```bash
+cd frontend/my-app
+npm install
+npm run dev
+```
+
+### Backend (Développement)
 ```bash
 cd backend
+# Créer un venv
 python -m venv venv
-source venv/bin/activate  # ou venv\Scripts\activate
+# Activer le venv (Windows)
+.\venv\Scripts\activate
+# Installer les dépendances
 pip install -r requirements.txt
+# Lancer le serveur
 uvicorn main:app --reload
-=======
-# SpamOrHamDetector
-Application web de détection message SPAM ou HAM
->>>>>>> c4e2c707971fff989c335d523b6bc8ba7960597f
+```
+
+---
+
+**[Lien de l'application](https://spamorham-mu.vercel.app/)**
