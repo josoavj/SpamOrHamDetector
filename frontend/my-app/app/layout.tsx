@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "SpamDetector - ML Powered",
   description: "Detect SPAM or HAM with AI",
+  icons: {
+    icon: "ISPM.ico", // Chemin vers ton icône dans le dossier public
+    // Tu peux aussi ajouter des icônes spécifiques pour Apple
+    apple: "/apple-touch-icon.png", 
+  },
 };
 
 export default function RootLayout({
