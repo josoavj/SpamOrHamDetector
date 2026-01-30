@@ -16,7 +16,7 @@ Développer une application web capable de détecter si un message texte (SMS) e
 |----|------|
 | Membre 1 | Machine Learning |
 | Membre 2 | Machine Learning |
-| Membre 3 | Backend |
+| ANDRIAMASINORO Aina Maminirina | Backend |
 | RABEMANANTSOA Fanilonombana Diana | Frontend |
 | VONJINIAINA Josoa | Documentation & Déploiement |
 
@@ -25,7 +25,7 @@ Développer une application web capable de détecter si un message texte (SMS) e
 ## 🧱 Stack technologique
 
 ### 🔙 Backend & Machine Learning
-- Python 3
+- Python 3.13.x
 - FastAPI
 - Scikit-learn
 - Pandas
