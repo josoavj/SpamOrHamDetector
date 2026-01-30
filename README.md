@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 📩 Détection de SPAM – Application Web ML
 
 ## 🏫 Institut
@@ -104,3 +105,7 @@ python -m venv venv
 source venv/bin/activate  # ou venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn main:app --reload
+=======
+# SpamOrHamDetector
+Application web de détection message SPAM ou HAM
+>>>>>>> c4e2c707971fff989c335d523b6bc8ba7960597f
