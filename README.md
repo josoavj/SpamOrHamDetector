@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # 📑 Rapport Technique MVP - Détecteur de SPAM
+=======
+# 📩 Détection de SPAM – Application Web ML
+>>>>>>> origin/spam-backend
 
 Ce document détaille l'implémentation de la version MVP (Minimum Viable Product) de l'application et la stratégie de transition vers le modèle Machine Learning final.
 
@@ -34,6 +38,7 @@ graph LR
 
 ---
 
+<<<<<<< HEAD
 ## 🔮 2. Stratégie de Transition (Vers le Backend Python)
 
 Actuellement, le dossier `backend/` est vide. Voici la marche à suivre pour intégrer le vrai modèle ML une fois développé par l'équipe Data.
@@ -90,12 +95,100 @@ return NextResponse.json(data);
 ### 2.3. Avantages de cette architecture
 - **Sécurité** : Le frontend ne communique jamais directement avec le modèle brut, mais passe par l'API Route de Next.js (qui peut gérer l'authentification, le rate-limiting, etc.).
 - **Indépendance** : L'équipe ML peut faire évoluer le modèle, changer de librairie (Scikit-learn -> PyTorch) sans casser le Frontend, tant que le JSON de sortie reste le même.
+=======
+## 👥 Équipe (ESIIA 5)
+| Nom | Rôle |
+|----|------|
+| Membre 1 | Machine Learning |
+| Membre 2 | Machine Learning |
+| ANDRIAMASINORO Aina Maminirina | Backend |
+| RABEMANANTSOA Fanilonombana Diana | Frontend |
+| VONJINIAINA Josoa | Documentation & Déploiement |
+>>>>>>> origin/spam-backend
 
 ---
 
 ## 🛠 Commandes Utiles
 
+<<<<<<< HEAD
 ### Lancer le Frontend (MVP)
+=======
+### 🔙 Backend & Machine Learning
+- Python 3.13.x
+- FastAPI
+- Scikit-learn
+- Pandas
+- Numpy
+- NLTK / SpaCy
+- Joblib
+
+### 🎨 Frontend
+- Next.js
+- React
+- Tailwind CSS
+
+### ☁️ Déploiement
+- Backend : Render / Railway
+- Frontend : Vercel
+- Formulaire : Google Forms
+
+---
+
+## 📊 Données
+- Dataset principal : SMS en **français**
+- Sources : Kaggle / HuggingFace (datasets open)
+- Les données sont nettoyées et prétraitées avant l’entraînement.
+
+---
+
+## ⚙️ Prétraitement
+- Mise en minuscules
+- Suppression de la ponctuation
+- Suppression des caractères spéciaux
+- Suppression des stop words (français)
+- Tokenisation
+
+---
+
+## 🤖 Modèle de Machine Learning
+- Vectorisation : **TF-IDF**
+- Modèle : **Régression Logistique**
+- Métriques :
+  - Accuracy
+  - F1-score
+- Le modèle retourne :
+  - Une prédiction (SPAM / HAM)
+  - Une probabilité associée
+
+---
+
+## 🌐 Fonctionnement de l’application
+1. L’utilisateur saisit un message via Google Form
+2. Le message est envoyé à l’API backend
+3. Le modèle ML analyse le message
+4. La prédiction et le score de confiance sont retournés
+
+---
+
+## 🚀 Déploiement
+- API backend hébergée et accessible publiquement
+- Application disponible à l’évaluation
+
+🔗 **Lien de l’application** :  
+👉 *À renseigner*
+
+---
+
+## 📈 Résultats
+- Accuracy : *À renseigner*
+- F1-score : *À renseigner*
+
+---
+
+## ▶️ Lancer le projet en local
+
+### Backend
+>>>>>>> origin/spam-backend
 ```bash
 cd frontend/my-app
 npm install
