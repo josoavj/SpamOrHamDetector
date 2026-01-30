@@ -14,8 +14,8 @@ Développer une application web capable de détecter si un message texte (SMS) e
 ## 👥 Équipe (ESIIA 5)
 | Nom | Rôle |
 |----|------|
-| Membre 1 | Machine Learning |
-| Membre 2 | Machine Learning |
+| RAZANAJATOVO ANDRIANIMERINA Kinasaela | Machine Learning |
+| RASOANAIVO Aro Itokiana | Machine Learning |
 | ANDRIAMASINORO Aina Maminirina | Backend |
 | RABEMANANTSOA Fanilonombana Diana | Frontend |
 | VONJINIAINA Josoa | Documentation & Déploiement |
@@ -91,8 +91,8 @@ Développer une application web capable de détecter si un message texte (SMS) e
 ---
 
 ## 📈 Résultats
-- Accuracy : *À renseigner*
-- F1-score : *À renseigner*
+- Accuracy : 0.8
+- F1-score : 0.75
 
 ---
 
