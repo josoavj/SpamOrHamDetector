@@ -1,14 +1,10 @@
-<<<<<<< HEAD
-# 📑 Rapport Technique MVP - Détecteur de SPAM
-=======
 # 📩 Détection de SPAM – Application Web ML
->>>>>>> origin/spam-backend
 
 Ce document détaille l'implémentation de la version MVP (Minimum Viable Product) de l'application et la stratégie de transition vers le modèle Machine Learning final.
 
 ---
 
-## 🚀 1. État Actuel (MVP)
+## 🚀 1. État Actuel
 
 ### Stack Frontend
 - **Framework** : Next.js 16 (App Router)
@@ -17,85 +13,24 @@ Ce document détaille l'implémentation de la version MVP (Minimum Viable Produc
 - **Internationalisation** : Gestion d'état React (`LanguageContext`) pour le support FR/MG.
 - **Animations** : Framer Motion.
 
-### Architecture Actuelle
-L'application fonctionne actuellement en mode "Simulation" pour permettre à l'équipe de visualiser le rendu final et les interactions sans attendre le modèle ML.
+### Architecture Hybride
+L'application utilise une approche hybride pour la détection de SPAM :
+
+1.  **Français (FR)** : Les messages sont envoyés à une API Backend FastAPI hébergée (`https://fastapi-for-spamorham.onrender.com`). Ce backend utilise un modèle de Machine Learning (Logistic Regression + TF-IDF) entraîné sur un dataset local.
+2.  **Malgache (MG)** : Les messages sont traités par un LLM (Llama 3 via OpenRouter) pour simuler la classification, faute de dataset suffisant pour l'instant.
 
 ```mermaid
 graph LR
     A[Client (Browser)] -->|POST /api/predict| B(Next.js API Route)
-    B -->|API Request| C[OpenRouter (LLM)]
-    C -->|Simulation SPAM/HAM| B
+    B -- Langue = FR --> C[Backend FastAPI (Render)]
+    C -->|Prédiction ML| B
+    B -- Langue = MG --> D[OpenRouter (LLM)]
+    D -->|Simulation LLM| B
     B -->|JSON Result| A
 ```
 
-### Fonctionnalités Implémentées
-1.  **Interface Utilisateur** : Design sombre, moderne, responsive.
-2.  **Saisie** : Zone de texte pour les SMS/Messages.
-3.  **Détection** :
-    - Utilisation d'un LLM (via OpenRouter) pour simuler la classification.
-    - Retourne : Label (SPAM/HAM), Score de confiance (%), et une courte explication.
-4.  **Multilingue** : Bascule instantanée entre Français et Malgache.
-
 ---
 
-<<<<<<< HEAD
-## 🔮 2. Stratégie de Transition (Vers le Backend Python)
-
-Actuellement, le dossier `backend/` est vide. Voici la marche à suivre pour intégrer le vrai modèle ML une fois développé par l'équipe Data.
-
-### 2.1. Développement du Backend Python
-L'équipe Backend/ML devra créer une API (idéalement avec **FastAPI**) dans le dossier `backend/`.
-
-**Contrat d'Interface (API Contract)** :
-Pour que le frontend continue de fonctionner sans modification majeure, l'API Python doit exposer une route (ex: `/predict`) qui accepte et retourne le format suivant :
-
-**Requête (POST)** :
-```json
-{
-  "text": "Message à analyser",
-  "language": "FR" // ou "MG"
-}
-```
-
-**Réponse attendue (JSON)** :
-```json
-{
-  "label": "SPAM",    // ou "HAM"
-  "score": 95,        // Entier ou flottant (0-100)
-  "explanation": "..." // Optionnel
-}
-```
-
-### 2.2. Modification du Frontend
-Une fois l'API Python opérationnelle (ex: `http://localhost:8000/predict`), la transition se fait en modifiant un seul fichier côté Frontend.
-
-**Fichier à modifier** : `frontend/my-app/app/api/predict/route.ts`
-
-**Changement à effectuer** :
-Au lieu d'appeler OpenRouter, l'API Route de Next.js agira comme un "proxy" vers votre backend Python.
-
-```typescript
-// frontend/my-app/app/api/predict/route.ts
-
-// ... (code existant)
-
-// REMPLACER L'APPEL OPENROUTER PAR CECI :
-const pythonBackendUrl = "http://localhost:8000/predict"; // URL de votre backend Python
-
-const response = await fetch(pythonBackendUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text, language })
-});
-
-const data = await response.json();
-return NextResponse.json(data);
-```
-
-### 2.3. Avantages de cette architecture
-- **Sécurité** : Le frontend ne communique jamais directement avec le modèle brut, mais passe par l'API Route de Next.js (qui peut gérer l'authentification, le rate-limiting, etc.).
-- **Indépendance** : L'équipe ML peut faire évoluer le modèle, changer de librairie (Scikit-learn -> PyTorch) sans casser le Frontend, tant que le JSON de sortie reste le même.
-=======
 ## 👥 Équipe (ESIIA 5)
 | Nom | Rôle |
 |----|------|
@@ -104,100 +39,54 @@ return NextResponse.json(data);
 | ANDRIAMASINORO Aina Maminirina | Backend |
 | RABEMANANTSOA Fanilonombana Diana | Frontend |
 | VONJINIAINA Josoa | Documentation & Déploiement |
->>>>>>> origin/spam-backend
 
 ---
 
-## 🛠 Commandes Utiles
+## 🛠 Stack Technique
 
-<<<<<<< HEAD
-### Lancer le Frontend (MVP)
-=======
 ### 🔙 Backend & Machine Learning
-- Python 3.13.x
-- FastAPI
-- Scikit-learn
-- Pandas
-- Numpy
-- NLTK / SpaCy
-- Joblib
+- **Langage** : Python 3.13
+- **Framework** : FastAPI
+- **ML** : Scikit-learn, Pandas, Numpy, NLTK
+- **Déploiement** : Render
 
 ### 🎨 Frontend
-- Next.js
-- React
-- Tailwind CSS
-
-### ☁️ Déploiement
-- Backend : Render / Railway
-- Frontend : Vercel
-- Formulaire : Google Forms
+- **Framework** : Next.js 16, React
+- **Styling** : Tailwind CSS
+- **Déploiement** : Vercel
 
 ---
 
-## 📊 Données
-- Dataset principal : SMS en **français**
-- Sources : Kaggle / HuggingFace (datasets open)
-- Les données sont nettoyées et prétraitées avant l’entraînement.
-
----
-
-## ⚙️ Prétraitement
-- Mise en minuscules
-- Suppression de la ponctuation
-- Suppression des caractères spéciaux
-- Suppression des stop words (français)
-- Tokenisation
-
----
-
-## 🤖 Modèle de Machine Learning
-- Vectorisation : **TF-IDF**
-- Modèle : **Régression Logistique**
-- Métriques :
-  - Accuracy
-  - F1-score
-- Le modèle retourne :
-  - Une prédiction (SPAM / HAM)
-  - Une probabilité associée
-
----
-
-## 🌐 Fonctionnement de l’application
-1. L’utilisateur saisit un message via Google Form
-2. Le message est envoyé à l’API backend
-3. Le modèle ML analyse le message
-4. La prédiction et le score de confiance sont retournés
-
----
-
-## 🚀 Déploiement
-- API backend hébergée et accessible publiquement
-- Application disponible à l’évaluation
-
-🔗 **Lien de l’application** :  
-👉 *À renseigner*
-
----
-
-## 📈 Résultats
-- Accuracy : *À renseigner*
-- F1-score : *À renseigner*
+## 📊 Données & Modèle (Backend FR)
+- **Dataset** : SMS en français (nettoyé et prétraité).
+- **Prétraitement** : Minuscules, suppression de bruit (chiffres, ponctuation), retrait des stop words, tokenisation.
+- **Modèle** : Régression Logistique avec vectorisation TF-IDF.
+- **Métriques** : Accuracy et F1-score maximisés.
 
 ---
 
 ## ▶️ Lancer le projet en local
 
-### Backend
->>>>>>> origin/spam-backend
+### Frontend
 ```bash
 cd frontend/my-app
 npm install
 npm run dev
 ```
 
-### Prochaines étapes (Backend)
-1. Initialiser le dossier `backend` (virtualenv, requirements.txt).
-2. Créer le script d'entraînement (`train.py`) et sauvegarder le modèle (ex: `model.pkl`).
-3. Créer l'API FastAPI (`main.py`) pour charger le modèle et servir les prédictions.
+### Backend (Développement)
+```bash
+cd backend
+# Créer un venv
+python -m venv venv
+# Activer le venv (Windows)
+.\venv\Scripts\activate
+# Installer les dépendances
+pip install -r requirements.txt
+# Lancer le serveur
+uvicorn main:app --reload
+```
 
-**[Lien de Test](https://spamorham-mu.vercel.app/)**
+---
+
+**[Lien de l'application](https://spamorham-mu.vercel.app/)**

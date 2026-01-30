@@ -8,16 +8,49 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Text required' }, { status: 400 });
         }
 
+        // --- TRAITEMENT FRANÇAIS (BACKEND CUSTOM) ---
+        if (language === 'FR') {
+            const backendUrl = "https://fastapi-for-spamorham.onrender.com/prediction";
+
+            try {
+                const response = await fetch(backendUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ text })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erreur backend: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                // Le backend renvoie { "prediction": "SPAM"|"HAM", "confiance": 0.xx }
+                // On mappe vers le format attendu par le frontend
+
+                return NextResponse.json({
+                    label: data.prediction,
+                    score: Math.round(data.confiance * 100),
+                    explanation: "Analyse effectuée par le modèle local optimisé pour le français."
+                });
+
+            } catch (err) {
+                console.error("Backend FR error:", err);
+                return NextResponse.json({
+                    error: "Le service d'analyse FR est indisponible pour le moment."
+                }, { status: 503 });
+            }
+        }
+
+        // --- TRAITEMENT MALAGASY (OPENROUTER / LLM) ---
         const apiKey = process.env.OPENROUTER_API_KEY;
 
-        // Fallback Mock if no key (though user said they added it)
         if (!apiKey) {
-            console.warn("No OPENROUTER_API_KEY found. Using mock.");
+            console.warn("No OPENROUTER_API_KEY found. Using mock for MG.");
             const isSpam = text.toLowerCase().includes('win') || text.toLowerCase().includes('gratuit');
             return NextResponse.json({
                 label: isSpam ? 'SPAM' : 'HAM',
                 score: isSpam ? 95 : 12,
-                explanation: "Mock mode: Detected keywords."
+                explanation: "Mock mode (MG): Detected keywords."
             });
         }
 
@@ -28,7 +61,7 @@ export async function POST(req: Request) {
       {
         "label": "SPAM" or "HAM",
         "score": number (0-100 confidence that it is the label),
-        "explanation": "Brief explanation in ${language === 'FR' ? 'French' : 'Malagasy'} (max 1 sentence)."
+        "explanation": "Brief explanation in Malagasy (max 1 sentence)."
       }
 
       Message to analyze: "${text}"
