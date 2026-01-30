@@ -12,13 +12,14 @@ Développer une application web capable de détecter si un message texte (SMS) e
 
 ---
 
-## 👥 Équipe
+## 👥 Équipe (ESIIA 5)
 | Nom | Rôle |
 |----|------|
 | Membre 1 | Machine Learning |
-| Membre 2 | Backend |
-| Membre 3 | Frontend |
-| Membre 4 | Documentation / Intégration |
+| Membre 2 | Machine Learning |
+| Membre 3 | Backend |
+| RABEMANANTSOA Fanilonombana Diana | Frontend |
+| Membre 5 | Documentation / Intégration |
 
 ---
 
