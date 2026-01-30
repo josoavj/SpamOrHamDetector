@@ -17,8 +17,10 @@ nltk.download('punkt', quiet=True)
 stop_words = set(stopwords.words('french'))
 
 #Chargement modèle et vectorizer
+
 model = joblib.load('../spam_model.pkl')
 vectorizer = joblib.load('../vectorizer.pkl')
+
 app = FastAPI()
 
 #Utilisation de CORS pour ne pas bloquer l'accès du frontend
